@@ -46,20 +46,18 @@ public class TuringMachineFileHandler {
       readBlankSymbol(scanner);
       readFinals(scanner);
       readNumberOfTapes(scanner);
-      while (scanner.hasNextLine())
+      while (scanner.hasNextLine()) {
         readNextTransition(scanner);
-
-    }
-    catch(FileNotFoundException e) {
+      }
+    } catch(FileNotFoundException e) {
       throw new FileNotFoundException(filename + " not found.");
-    }
-    catch (TuringMachineExceptionHandler e) {
+    } catch (TuringMachineExceptionHandler e) {
       System.err.println(e.getMessage());
       throw new TuringMachineExceptionHandler(e.getMessage());
-    }
-    finally {
+    } finally {
       scanner.close();
     }
+    
     return getMachine();
   }
 
@@ -71,60 +69,66 @@ public class TuringMachineFileHandler {
    */
   private static String skipLineComments(Scanner scanner) {
     String aux = null;
-    if(scanner.hasNextLine())
+    if(scanner.hasNextLine()) {
       do {                  
         scanner = scanner.skip("[\t\r \n]*"); 
         aux = scanner.nextLine();
-      } while (scanner.hasNextLine() && aux.charAt(0) == '#');    // Skipping all comments on the beginning 
+      } while (scanner.hasNextLine() && aux.charAt(0) == '#');    // Skipping all comments on the beginning
+    }
     return aux;
   }
 
   public static void readStates(Scanner scanner){
     String line = skipLineComments(scanner);
-    System.out.println(line);
     String[] states = line.split("[\t ]+");
 
-    for (int i = 0; i < states.length; i++)
+    for (int i = 0; i < states.length; i++) {
       getMachine().addState(states[i]);
-
+    }
   }
+  
   public static void readSigma(Scanner scanner) {
     String line = skipLineComments(scanner);
     String[] symbols = line.split("[\t ]+");
 
-    for (int i = 0; i < symbols.length; i++)
+    for (int i = 0; i < symbols.length; i++) {
       getMachine().addElementToSigma(symbols[i]);
+    }
   }
+  
   public static void readTau(Scanner scanner) {
     String line = skipLineComments(scanner);
     String[] symbols = line.split("[\t ]+");
 
-    for (int i = 0; i < symbols.length; i++)
+    for (int i = 0; i < symbols.length; i++) {
       getMachine().addElementToTau(symbols[i]);
+    }
   }
+  
   public static void readInitialState(Scanner scanner) throws TuringMachineExceptionHandler {
     String line = skipLineComments(scanner);
     String[] states = line.split("[\t ]+");
 
-    if (states.length > 1)
+    if (states.length > 1) {
       throw new TuringMachineExceptionHandler("Solo puede haber un estado inicial.");
-
-    try{
-      getMachine().setStartingState(new TuringMachineState(states[0]));
     }
-    catch(IllegalArgumentException a) {
+
+    try {
+      getMachine().setStartingState(new TuringMachineState(states[0]));
+    } catch(IllegalArgumentException a) {
       throw new TuringMachineExceptionHandler(a.getMessage());
     }
   }
+  
   public static void readBlankSymbol(Scanner scanner) throws TuringMachineExceptionHandler {
     String line = skipLineComments(scanner);
     String[] states = line.split("[\t ]+");
 
-    if (states.length > 1)
+    if (states.length > 1) {
       throw new TuringMachineExceptionHandler("Solo puede haber un simbolo blanco.");
+    }
 
     TuringMachine.BLANK = states[0];
-
   }
 
   public static void readFinals(Scanner scanner) throws TuringMachineExceptionHandler {
@@ -132,10 +136,10 @@ public class TuringMachineFileHandler {
     String[] states = line.split("[\t ]+");
 
     try {
-      for (int i = 0; i < states.length; i++)
+      for (int i = 0; i < states.length; i++) {
         getMachine().addFinalState(states[i]);
-    }
-    catch(IllegalArgumentException e) {
+      }
+    } catch(IllegalArgumentException e) {
       throw new TuringMachineExceptionHandler(e.getMessage());
     }
   }
@@ -151,13 +155,15 @@ public class TuringMachineFileHandler {
     String destiny;
     int index = 0;
 
-    if (symbols.length < tapes * 3 + 2)
+    if (symbols.length < tapes * 3 + 2) {
       throw new TuringMachineExceptionHandler("Error en las transiciones");
+    }
 
     origin = symbols[0];
 
-    for (int i = 1; i < tapes + 1; i++)
+    for (int i = 1; i < tapes + 1; i++) {
       symbolToRead[i - 1] = symbols[i];
+    }
 
     destiny = symbols[tapes + 1];
 
@@ -165,16 +171,18 @@ public class TuringMachineFileHandler {
       symbolToWrite[index] = symbols[i];
       index ++;
     }
+    
     index = 0;
     for (int i = 2 * tapes + 2; i < symbols.length; i++ ) {
-      if(symbols[i].equals("L"))
+      if(symbols[i].equals("L")) {
         moves[index] = TuringMachineMovesSet.LEFT;
-      else if(symbols[i].equals("R"))
+      } else if(symbols[i].equals("R")) {
         moves[index] = TuringMachineMovesSet.RIGHT;
-      else if(symbols[i].equals("S"))
-        moves[index] = TuringMachineMovesSet.STAY;
-      else
+      } else if(symbols[i].equals("S")) {
+        moves[index] = TuringMachineMovesSet.STOP;
+      } else {
         throw new TuringMachineExceptionHandler("Error en las transiciones");
+      }
       index++;
     }
     try {
@@ -182,7 +190,6 @@ public class TuringMachineFileHandler {
     } catch (Exception e) {
       throw new TuringMachineExceptionHandler(e.getMessage());
     }
-
   }
 
   private static void readNumberOfTapes(Scanner scanner) throws TuringMachineExceptionHandler {
@@ -195,7 +202,6 @@ public class TuringMachineFileHandler {
     catch(Exception e) {
       throw new TuringMachineExceptionHandler("Error en el numero de cintas.");
     }
-
   }
 
   public static TuringMachine getMachine() {
@@ -205,6 +211,4 @@ public class TuringMachineFileHandler {
   public static void setMachine(TuringMachine machine) {
     TuringMachineFileHandler.machine = machine;
   }
-
-
 }

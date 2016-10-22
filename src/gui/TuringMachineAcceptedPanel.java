@@ -17,24 +17,28 @@ import javax.swing.JPanel;
 public class TuringMachineAcceptedPanel extends JPanel {
 	Boolean accepted;
 	
-	public TuringMachineAcceptedPanel() {
-		
+	public TuringMachineAcceptedPanel() {		
 	}
+	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g.create());
+		
 		if (accepted != null) {
-			if (accepted)
+			if (accepted) {
 				g.setColor(Color.GREEN);
-			else
+			} else {
 				g.setColor(Color.RED);
+			}
+			
 			g.fillRect(0, 0, getWidth(), getHeight());
 		}
 	}
+	
 	public Boolean getAccepted() {
 		return accepted;
 	}
+	
 	public void setAccepted(Boolean accepted) {
 		this.accepted = accepted;
-	}
-	
+	}	
 }

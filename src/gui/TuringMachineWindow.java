@@ -38,29 +38,28 @@ public class TuringMachineWindow extends JFrame{
 		setTextPanel(new JPanel(new GridLayout(2, 1)));
 		setTextField(new JTextField());
 		setAcceptedPanel(new TuringMachineAcceptedPanel());
-		setButton(new JButton("Comprobar"));
-		
+		setButton(new JButton("Check"));		
 		getPanel().add(getTextField());
 		getPanel().add(getButton());
-		getTextPanel().add(getPanel());
-		
+		getTextPanel().add(getPanel());		
 		getTextPanel().add(getAcceptedPanel());
 		
-		getButton().addActionListener(new ActionListener() {
-			
+		getButton().addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String text = getTextField().getText();
 				String[] tapeText = text.split("/");
 				ArrayList<TuringMachineTape> turingMachineTapes = new ArrayList<TuringMachineTape>();
 				
-				for (int i = 0; i < tapeText.length; i++)
+				for (int i = 0; i < tapeText.length; i++) {
 					turingMachineTapes.add(new TuringMachineTape(tapeText[i]));
+				}
 				
 				if (tapeText.length != getAutomaton().getNumberOfTapes()) {
 					System.err.println("El numero de cintas es incorrecto.");
 					return;
 				}
+				
 				getAutomaton().setTapes(turingMachineTapes);
 				
 				accepted = getAutomaton().evaluateEntry();
@@ -71,22 +70,17 @@ public class TuringMachineWindow extends JFrame{
 				repaint();
 			}
 		});
-		this.add(getTextPanel());
+		
+		add(getTextPanel());
 	}
-
-
 
 	public TuringMachine getAutomaton() {
 		return automaton;
 	}
 
-
-
 	public void setAutomaton(TuringMachine automaton) {
 		this.automaton = automaton;
 	}
-
-
 
 	public JPanel getPanel() {
 		return panel;
@@ -134,7 +128,5 @@ public class TuringMachineWindow extends JFrame{
 
 	public void setAccepted(Boolean accepted) {
 		this.accepted = accepted;
-	}
-	
-	
+	}	
 }

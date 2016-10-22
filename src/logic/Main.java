@@ -26,6 +26,7 @@ public class Main {
 			System.err.println("Se debe pasar por parametro el archivo a leer");
 			return;
 		}
+		
 		try {
 			automaton = TuringMachineFileHandler.parseFromFile("turing_examples/" + args[0]);
 			frame  = new TuringMachineWindow(automaton);
@@ -37,7 +38,7 @@ public class Main {
 		 frame.setTitle("Multi-Tape Turing Machine");
 		 frame.setSize(600, 300);
 	 	 frame.setLocationRelativeTo(null); // Center the frame
-	     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 frame.setVisible(true);
 	}
 }

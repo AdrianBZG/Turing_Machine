@@ -22,14 +22,17 @@ public class TuringMachineAlphabet {
 	public TuringMachineAlphabet(){
 		setAlphabet(new ArrayList<String>());
 	}
+	
   /**
    * Adds an element to the alphabet
    * @param element
    */
 	public void addElementToAlphabet(String element) {
-		if (!getAlphabet().contains(element) && !element.equals(TuringMachine.BLANK))
+		if (!getAlphabet().contains(element) && !element.equals(TuringMachine.BLANK)) {
 			getAlphabet().add(element);
+		}
 	}
+	
   /**
    * Verifies if an element belongs to the alphabet
    * @param element Element to check
@@ -45,6 +48,5 @@ public class TuringMachineAlphabet {
 
 	private void setAlphabet(ArrayList<String> alphabet) {
 		this.alphabet = alphabet;
-	}
-	
+	}	
 }

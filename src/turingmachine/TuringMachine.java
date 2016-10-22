@@ -19,8 +19,6 @@ import turingmachineelements.TuringMachineTape;
 import turingmachineelements.TuringMachineTransition;
 import turingmachineelements.TuringMachineTransitionTable;
 
-
-
 public class TuringMachine {
 	
 	public static String BLANK = "$";							                               // Symbol to represent blank
@@ -47,50 +45,55 @@ public class TuringMachine {
    * @throws IOException 
    */
 	public boolean evaluateEntry() {
-		TuringMachineTransition t;
+		TuringMachineTransition transition;
 		setActualState(getStartingState());
 		do {
-			t = getNextTransitionToApply();
+			transition = getNextTransitionToApply();
 			
-			if (t == null)
+			if (transition == null) {
 				break;
+			}
 			
-			applyTransition(t);
+			applyTransition(transition);
 			
-		}while(true);
+		} while(true);
 		
 		return entryAccepted();
 	}
-	private void applyTransition(TuringMachineTransition t) {
-		setActualState(t.getDestiny());
-		String[] toWrite = t.getSymbolToWrite();
-		TuringMachineMovesSet[] moves = t.getMoveToApply();
+	
+	private void applyTransition(TuringMachineTransition transition) {
+		setActualState(transition.getDestiny());
+		String[] toWrite = transition.getSymbolToWrite();
+		TuringMachineMovesSet[] moves = transition.getMoveToApply();
 		
 		for (int i = 0; i < getNumberOfTapes(); i++) {
 			getTapes().get(i).Write(toWrite[i]);
 			
 			switch (moves[i]) {
-			case LEFT:
-				getTapes().get(i).moveLeft();
-				break;
-			case RIGHT:
-				getTapes().get(i).moveRight();
-				break;
-			default:
-				break;
+			  case LEFT:
+			    getTapes().get(i).moveLeft();
+			    break;
+			    
+			  case RIGHT:
+			    getTapes().get(i).moveRight();
+			    break;
+			    
+			  default:
+			    break;
 			}
-		}
-		
+		}		
 	}
+	
 	private TuringMachineTransition getNextTransitionToApply() {
 		ArrayList<TuringMachineTransition> possibleTransitions;
 		
 		possibleTransitions = getAutomaton().getTransitionsFromState(getActualState());
 		
-		for (int i = 0; i < possibleTransitions.size(); i++)
-			if (canApplyTransition(possibleTransitions.get(i)))
+		for (int i = 0; i < possibleTransitions.size(); i++) {
+			if (canApplyTransition(possibleTransitions.get(i))) {
 				return possibleTransitions.get(i);
-		
+			}
+		}		
 		
 		return null;
 	}
@@ -99,8 +102,9 @@ public class TuringMachine {
 		String[] symbols = t.getSymbolToRead();
 		
 		for (int i = 0; i < getTapes().size(); i++) {
-			if (!getTapes().get(i).read().equals(symbols[i]))
+			if (!getTapes().get(i).read().equals(symbols[i])) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -113,6 +117,7 @@ public class TuringMachine {
 	private boolean entryAccepted() {
 		return getActualState().getIsFinal();
 	}
+	
 	public String getTapesString() {
 		String result = "";
 		
@@ -131,13 +136,15 @@ public class TuringMachine {
 	public boolean stateExist(String state) {
 		return getAutomaton().stateExist(state);
 	}
+	
   /**
    * Adds a new state
    * @param newState
    */
-	public void addState(String newState){
+	public void addState(String newState) {
 		getAutomaton().addState(newState);
 	}
+	
   /**
    * Adds a new final state
    * @param finalState
@@ -145,6 +152,7 @@ public class TuringMachine {
 	public void addFinalState(String finalState) {
 		getAutomaton().addFinalState(finalState);
 	}
+	
   /**
    * Adds a new element to the Sigma alphabet
    * @param newElement
@@ -173,17 +181,17 @@ public class TuringMachine {
 	public void addTransition(String origin,  String destiny, String[] symbolsToRead, String[] symbolsToWrite, TuringMachineMovesSet[] moves) throws IllegalArgumentException {
 		TuringMachineTransition turingMachineTransition;
 		
-		if (!stateExist(origin))
+		if (!stateExist(origin)) {
 			throw new IllegalArgumentException("El elemento " + origin + " no forma parte del conjunto de estados.");
-		if (!stateExist(destiny))
+		}
+		if (!stateExist(destiny)) {
 			throw new IllegalArgumentException("El elemento " + destiny + " no forma parte del conjunto de estados.");
-		if (getNumberOfTapes() != symbolsToRead.length || getNumberOfTapes() != symbolsToWrite.length || getNumberOfTapes() !=  moves.length)
+		}
+		if (getNumberOfTapes() != symbolsToRead.length || getNumberOfTapes() != symbolsToWrite.length || getNumberOfTapes() !=  moves.length) {
 			throw new IllegalArgumentException("Fallo en las transiciones");
-		
-	
+		}	
 		
 		turingMachineTransition = new TuringMachineTransition(new TuringMachineState(origin), new TuringMachineState(destiny), symbolsToRead, symbolsToWrite, moves, getNumberOfTapes());
-		
 		getAutomaton().addTransitionToState(turingMachineTransition);
 	}
 
@@ -203,15 +211,15 @@ public class TuringMachine {
 		this.actualState = actualState;
 	}
 
-
 	public TuringMachineState getStartingState() {
 		return startingState;
 	}
 
 	public void setStartingState(TuringMachineState startingState) {
 		this.startingState = startingState;
-		if (!getAutomaton().stateExist(startingState.getName()))
+		if (!getAutomaton().stateExist(startingState.getName())) {
 			throw new IllegalArgumentException("No existe el estado " + startingState.getName());
+		}
 	}
 
 	public ArrayList<TuringMachineTape> getTapes() {
@@ -229,18 +237,20 @@ public class TuringMachine {
 	public void setNumberOfTapes(Integer numberOfTapes) {
 		this.numberOfTapes = numberOfTapes;
 	}
+	
 	public TuringMachineAlphabet getSigma() {
 		return sigma;
 	}
+	
 	public void setSigma(TuringMachineAlphabet sigma) {
 		this.sigma = sigma;
 	}
+	
 	public TuringMachineAlphabet getTau() {
 		return tau;
 	}
+	
 	public void setTau(TuringMachineAlphabet tau) {
 		this.tau = tau;
-	}
-	
-	
+	}	
 }

@@ -13,8 +13,7 @@ package exceptions;
  * Class to handle any error during the TM execution
  */
 public class TuringMachineExceptionHandler extends Exception {
-
-	public TuringMachineExceptionHandler(String m) {
+  public TuringMachineExceptionHandler(String m) {
 		super(m);
 	}
 }

@@ -10,7 +10,6 @@
 package turingmachineelements;
 
 /* Class to define the possible movements for the Turing Machine */
-
 public enum TuringMachineMovesSet {
-	LEFT, RIGHT, STAY
+	LEFT, RIGHT, STOP
 }
