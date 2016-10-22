@@ -7,7 +7,7 @@
  * @title Multi-Tape Turing Machine
  */
 
-package turingmachine;
+package exceptions;
 
 /**
  * Clase encargada de definir un error durante el parsing.
