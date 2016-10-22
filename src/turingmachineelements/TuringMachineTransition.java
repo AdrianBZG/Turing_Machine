@@ -7,7 +7,7 @@
  * @title Multi-Tape Turing Machine
  */
 
-package turingmachine;
+package turingmachineelements;
 
 public class TuringMachineTransition {
 	

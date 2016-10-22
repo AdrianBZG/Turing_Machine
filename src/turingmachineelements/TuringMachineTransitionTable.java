@@ -7,7 +7,7 @@
  * @title Multi-Tape Turing Machine
  */
 
-package turingmachine;
+package turingmachineelements;
 
 import java.util.ArrayList;
 import java.util.HashMap;

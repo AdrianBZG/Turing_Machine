@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import turingmachineelements.TuringMachineAlphabet;
+import turingmachineelements.TuringMachineMovesSet;
+import turingmachineelements.TuringMachineState;
+import turingmachineelements.TuringMachineTape;
+import turingmachineelements.TuringMachineTransition;
+import turingmachineelements.TuringMachineTransitionTable;
+
 
 
 public class TuringMachine {

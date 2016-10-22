@@ -7,7 +7,7 @@
  * @title Multi-Tape Turing Machine
  */
 
-package turingmachine;
+package gui;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import turingmachine.TuringMachine;
+import turingmachineelements.TuringMachineTape;
 
 public class TuringMachineWindow extends JFrame{
 	TuringMachine automaton;

@@ -7,9 +7,11 @@
  * @title Multi-Tape Turing Machine
  */
 
-package turingmachine;
+package turingmachineelements;
 
 import java.util.ArrayList;
+
+import turingmachine.TuringMachine;
 
 public class TuringMachineAlphabet {
 	private ArrayList<String> alphabet;				// Lista de simbolos que componen el alfabeto.
