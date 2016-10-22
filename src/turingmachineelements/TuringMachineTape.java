@@ -22,10 +22,12 @@ public class TuringMachineTape {
 		this.tape = new ArrayList<String>();
 		this.position = 0;
 	}
+	
 	public TuringMachineTape(String input) {
 		this();
 		setInput(input);
 	}
+	
 	public String read() {
 		return getTape().get(getPosition());
 	}
@@ -35,17 +37,19 @@ public class TuringMachineTape {
 	}
 	
 	public void moveLeft() {
-		if (getPosition() == 0) 
+		if (getPosition() == 0) {
 			getTape().add(0, TuringMachine.BLANK);
-		else 
+		} else { 
 			setPosition(getPosition() - 1);
+		}
 	}
 	
 	public void moveRight() {
 		setPosition(getPosition() + 1);
 		
-		if (getPosition() >= getTape().size()) 
+		if (getPosition() >= getTape().size()) {
 			getTape().add(TuringMachine.BLANK);
+		}
 	}
 
 	public void setInput(String input) {
@@ -54,18 +58,22 @@ public class TuringMachineTape {
 		for (int i = 0; i < dividedInput.length; i++) {
 			getTape().add(dividedInput[i]);
 		}
+		
 		getTape().add(TuringMachine.BLANK);
 		getTape().add(0, TuringMachine.BLANK);
-		setPosition(1);
-		
+		setPosition(1);		
 	}
+	
 	public String toString() {
 		String result = "";
-		for (int i = 0; i < getTape().size(); i++)
+		
+		for (int i = 0; i < getTape().size(); i++) {
 			result = result + getTape().get(i);
+		}
 		
 		return result;
 	}
+	
 	public ArrayList<String> getTape() {
 		return tape;
 	}
@@ -80,7 +88,5 @@ public class TuringMachineTape {
 
 	public void setPosition(Integer position) {
 		this.position = position;
-	}
-	
-	
+	}	
 }

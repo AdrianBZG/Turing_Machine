@@ -10,49 +10,45 @@
 package turingmachineelements;
 
 public class TuringMachineTransition {
-	
-	private TuringMachineState origin;                   // The origin state
-	private TuringMachineState destiny;                  // The destination state
-	private String[] symbolToRead;                       // The symbol to be read
-	private String[] symbolToWrite;                      // The symbol to be written
-	private TuringMachineMovesSet[] moveToApply;         // The available moves to be applied
-	private Integer numberOfTapes;                       // The number of tapes
-	
-	public TuringMachineTransition(TuringMachineState origin, TuringMachineState destiny, String[] symbolToRead,
-			String[] symbolToWrite, TuringMachineMovesSet[] moveToApply, Integer numberOfTapes) {
-		super();
-		this.origin = origin;
-		this.destiny = destiny;
-		this.symbolToRead = symbolToRead;
-		this.symbolToWrite = symbolToWrite;
-		this.moveToApply = moveToApply;
-		this.numberOfTapes = numberOfTapes;
-	}
 
-	public TuringMachineState getOrigin() {
-		return origin;
-	}
+  private TuringMachineState origin;                   // The origin state
+  private TuringMachineState destiny;                  // The destination state
+  private String[] symbolToRead;                       // The symbol to be read
+  private String[] symbolToWrite;                      // The symbol to be written
+  private TuringMachineMovesSet[] moveToApply;         // The available moves to be applied
+  private Integer numberOfTapes;                       // The number of tapes
 
-	public TuringMachineState getDestiny() {
-		return destiny;
-	}
+  public TuringMachineTransition(TuringMachineState origin, TuringMachineState destiny, String[] symbolToRead, String[] symbolToWrite, TuringMachineMovesSet[] moveToApply, Integer numberOfTapes) {
+    super();
+    this.origin = origin;
+    this.destiny = destiny;
+    this.symbolToRead = symbolToRead;
+    this.symbolToWrite = symbolToWrite;
+    this.moveToApply = moveToApply;
+    this.numberOfTapes = numberOfTapes;
+  }
 
-	public String[] getSymbolToRead() {
-		return symbolToRead;
-	}
+  public TuringMachineState getOrigin() {
+    return origin;
+  }
 
-	public String[] getSymbolToWrite() {
-		return symbolToWrite;
-	}
+  public TuringMachineState getDestiny() {
+    return destiny;
+  }
 
-	public TuringMachineMovesSet[] getMoveToApply() {
-		return moveToApply;
-	}
+  public String[] getSymbolToRead() {
+    return symbolToRead;
+  }
 
-	public Integer getNumberOfTapes() {
-		return numberOfTapes;
-	}
-	
-	
-	
+  public String[] getSymbolToWrite() {
+    return symbolToWrite;
+  }
+
+  public TuringMachineMovesSet[] getMoveToApply() {
+    return moveToApply;
+  }
+
+  public Integer getNumberOfTapes() {
+    return numberOfTapes;
+  }
 }

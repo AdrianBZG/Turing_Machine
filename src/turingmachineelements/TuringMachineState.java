@@ -17,6 +17,7 @@ public class TuringMachineState {
 	public TuringMachineState(String name) {
 		this.name = name;
 	}
+	
 	public TuringMachineState(String name, Boolean isFinal) {
 		this(name);
 		this.isFinal = isFinal;
@@ -25,25 +26,29 @@ public class TuringMachineState {
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public Boolean getIsFinal() {
 		return isFinal;
 	}
+	
 	public void setIsFinal(Boolean isFinal) {
 		this.isFinal = isFinal;
 	}
 
 	@Override
 	public boolean equals(Object arg0) {
-		if (this.name.equals(((TuringMachineState)arg0).getName()))
+		if (this.name.equals(((TuringMachineState)arg0).getName())) {
 			return true;
+		}
 		return false;
 	}
+	
 	@Override
 	public int hashCode() {	
 		return getName().hashCode();
-	}
-	
+	}	
 }

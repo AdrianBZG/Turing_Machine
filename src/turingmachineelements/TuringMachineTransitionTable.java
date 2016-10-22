@@ -20,13 +20,12 @@ public class TuringMachineTransitionTable {
 	}
 	
 	
-	public void addTransitionToState(TuringMachineTransition t) {
-		getTransitionTable().keySet().forEach((state)-> {if (state.equals(t.getDestiny())) t.getDestiny().setIsFinal(state.getIsFinal());});
-		getTransitionTable().keySet().forEach((state)-> {if (state.equals(t.getOrigin())) t.getOrigin().setIsFinal(state.getIsFinal());});
+	public void addTransitionToState(TuringMachineTransition transition) {
+		getTransitionTable().keySet().forEach((state)-> {if (state.equals(transition.getDestiny())) transition.getDestiny().setIsFinal(state.getIsFinal());});
+		getTransitionTable().keySet().forEach((state)-> {if (state.equals(transition.getOrigin())) transition.getOrigin().setIsFinal(state.getIsFinal());});
 		
-		getTransitionTable().get(t.getOrigin()).add(t);
+		getTransitionTable().get(transition.getOrigin()).add(transition);
 	}
-	
 	
 	public ArrayList<TuringMachineTransition> getTransitionsFromState(TuringMachineState turingMachineState) {
 		return getTransitionTable().get(turingMachineState);
@@ -54,21 +53,19 @@ public class TuringMachineTransitionTable {
 	 * Adds a new state
 	 * @param newState
 	 */
-	public void addState(String newState){
-		
-		if (getTransitionTable().containsKey(new TuringMachineState(newState)))
+	public void addState(String newState) {		
+		if (getTransitionTable().containsKey(new TuringMachineState(newState))) {
 			throw new IllegalArgumentException("El estado " + newState + " ya existe.");
-		else
+		} else {
 			getTransitionTable().put(new TuringMachineState(newState), new ArrayList<TuringMachineTransition>());
+		}
 	}
 	
 	public HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> getTransitionTable() {
 		return transitionTable;
 	}
 
-	public void setTransitionTable(HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> automaton) {
-		this.transitionTable = automaton;
-	}
-	
-	
+	public void setTransitionTable(HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> transitionTable) {
+		this.transitionTable = transitionTable;
+	}	
 }
