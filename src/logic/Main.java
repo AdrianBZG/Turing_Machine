@@ -27,7 +27,7 @@ public class Main {
 			return;
 		}
 		try {
-			automaton = TuringMachineFileHandler.parseFromFile("maquinas/" + args[0]);
+			automaton = TuringMachineFileHandler.parseFromFile("turing_examples/" + args[0]);
 			frame  = new TuringMachineWindow(automaton);
 		} catch (IOException | TuringMachineExceptionHandler e) {
 			// TODO Auto-generated catch block

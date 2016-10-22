@@ -1,13 +1,12 @@
-q0 q1
-a b
-a b
+# This TM receives as parameter a binary string and copies the 1 on the second tape
+# with a blank symbol
+
+q0			# Initial state
+1 0
+1 0
 q0
 $
 q0
-1
-q0 a q1 a R
-q0 b q0 b R
-q0 c q0 b R
-q1 a q0 a R
-q1 b q1 b R
-q1 c q1 c R
+2				# Number of tapes
+q0 1 $ q0 1 1 R R
+q0 0 $ q0 0 $ R S

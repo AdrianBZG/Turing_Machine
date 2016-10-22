@@ -65,7 +65,7 @@ public class TuringMachineWindow extends JFrame{
 				
 				accepted = getAutomaton().evaluateEntry();
 				text = getAutomaton().getTapesString();
-				getTextField().setText(text);
+				getTextField().setText(text);   // Cuidado aqui, mejor en el log o dara problemas
 				getAcceptedPanel().setAccepted(accepted);
 				
 				repaint();

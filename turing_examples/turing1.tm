@@ -1,9 +1,15 @@
-q0
-1 0
-1 0
+# This TM accepts L = { w in Sigma* | w = (a | b | c)* |a| is even }
+
+q0 q1
+a b
+a b
 q0
 $
 q0
-2
-q0 1 $ q0 1 1 R R
-q0 0 $ q0 0 $ R S
+1
+q0 a q1 a R
+q0 b q0 b R
+q0 c q0 c R
+q1 a q0 a R
+q1 b q1 b R
+q1 c q1 c R
