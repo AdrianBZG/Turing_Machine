@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
 import exceptions.TuringMachineExceptionHandler;
 import turingmachine.TuringMachine;
 import turingmachineelements.TuringMachineMovesSet;
@@ -20,15 +21,15 @@ import turingmachineelements.TuringMachineState;
 
 public class TuringMachineFileHandler {
 
-  private static TuringMachine machine;           // Automata a construir.
+  private static TuringMachine machine;           // The Turing Machine to build
 
   /**
-   * Crea un automata a partir de un archivo.
+   * Creates an TM from a file
    * 
-   * @param filename
+   * @param fileName
    * @return
    * @throws IOException
-   * @throws TuringMachineExceptionHandler
+   * @throws AutomatonExceptionHandler
    */
   public static TuringMachine parseFromFile(String filename)throws IOException, TuringMachineExceptionHandler {
     setMachine(new TuringMachine());

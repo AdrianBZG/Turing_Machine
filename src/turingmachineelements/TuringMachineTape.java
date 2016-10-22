@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import turingmachine.TuringMachine;
 
 public class TuringMachineTape {
-	private ArrayList<String> tape;
-	private Integer position;
+	private ArrayList<String> tape;          // The tape
+	private Integer position;                // Current position of the head on the tape
 	
 	
 	public TuringMachineTape() {

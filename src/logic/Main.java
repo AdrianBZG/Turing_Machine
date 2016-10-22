@@ -30,16 +30,12 @@ public class Main {
 			automaton = TuringMachineFileHandler.parseFromFile("turing_examples/" + args[0]);
 			frame  = new TuringMachineWindow(automaton);
 		} catch (IOException | TuringMachineExceptionHandler e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
-		//automaton.setInputString("aaabbb");
-		//System.out.println(automaton.evaluateEntry());
 		
-		 frame.setTitle("Maquina de turing");
+		 frame.setTitle("Multi-Tape Turing Machine");
 		 frame.setSize(600, 300);
-		// frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	 	 frame.setLocationRelativeTo(null); // Center the frame
 	     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 frame.setVisible(true);

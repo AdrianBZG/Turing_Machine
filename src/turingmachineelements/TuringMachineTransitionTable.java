@@ -13,60 +13,61 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TuringMachineTransitionTable {
-	private HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> automaton;
+	private HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> transitionTable;       // Table with the associations between a State and it's possible transitions
 	
 	public TuringMachineTransitionTable() {
-		this.automaton = new HashMap<TuringMachineState, ArrayList<TuringMachineTransition>>();
+		this.transitionTable = new HashMap<TuringMachineState, ArrayList<TuringMachineTransition>>();
 	}
 	
 	
 	public void addTransitionToState(TuringMachineTransition t) {
-		getAutomaton().keySet().forEach((state)-> {if (state.equals(t.getDestiny())) t.getDestiny().setIsFinal(state.getIsFinal());});
-		getAutomaton().keySet().forEach((state)-> {if (state.equals(t.getOrigin())) t.getOrigin().setIsFinal(state.getIsFinal());});
+		getTransitionTable().keySet().forEach((state)-> {if (state.equals(t.getDestiny())) t.getDestiny().setIsFinal(state.getIsFinal());});
+		getTransitionTable().keySet().forEach((state)-> {if (state.equals(t.getOrigin())) t.getOrigin().setIsFinal(state.getIsFinal());});
 		
-		getAutomaton().get(t.getOrigin()).add(t);
+		getTransitionTable().get(t.getOrigin()).add(t);
 	}
 	
 	
 	public ArrayList<TuringMachineTransition> getTransitionsFromState(TuringMachineState turingMachineState) {
-		return getAutomaton().get(turingMachineState);
-	}
-	/**
-	 * Verifica si el estado existe en el automata.
-	 * @param state
-	 * @return True si existe.
-	 */
-	public boolean stateExist(String state) {
-		return getAutomaton().containsKey(new TuringMachineState(state));
+		return getTransitionTable().get(turingMachineState);
 	}
 	
 	/**
-	 * A�ade un nuevo estado final.
+	 * Verifies if the state exists in the TM
+	 * @param state
+	 * @return True if the state exists
+	 */
+	public boolean stateExist(String state) {
+		return getTransitionTable().containsKey(new TuringMachineState(state));
+	}
+	
+	/**
+	 * Adds a new final state
 	 * @param finalState
 	 */
 	public void addFinalState(String finalState) {
 	
-			getAutomaton().keySet().forEach((state)-> {if (state.equals(new TuringMachineState(finalState))) state.setIsFinal(true);});
+			getTransitionTable().keySet().forEach((state)-> {if (state.equals(new TuringMachineState(finalState))) state.setIsFinal(true);});
 	}
 	
 	/**
-	 * A�ade un nuevo estado.
+	 * Adds a new state
 	 * @param newState
 	 */
 	public void addState(String newState){
 		
-		if (getAutomaton().containsKey(new TuringMachineState(newState)))
+		if (getTransitionTable().containsKey(new TuringMachineState(newState)))
 			throw new IllegalArgumentException("El estado " + newState + " ya existe.");
 		else
-			getAutomaton().put(new TuringMachineState(newState), new ArrayList<TuringMachineTransition>());
+			getTransitionTable().put(new TuringMachineState(newState), new ArrayList<TuringMachineTransition>());
 	}
 	
-	public HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> getAutomaton() {
-		return automaton;
+	public HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> getTransitionTable() {
+		return transitionTable;
 	}
 
-	public void setAutomaton(HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> automaton) {
-		this.automaton = automaton;
+	public void setTransitionTable(HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> automaton) {
+		this.transitionTable = automaton;
 	}
 	
 	

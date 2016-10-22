@@ -11,12 +11,12 @@ package turingmachineelements;
 
 public class TuringMachineTransition {
 	
-	private TuringMachineState origin;
-	private TuringMachineState destiny;
-	private String[] symbolToRead;
-	private String[] symbolToWrite;
-	private TuringMachineMovesSet[] moveToApply;
-	private Integer numberOfTapes;
+	private TuringMachineState origin;                   // The origin state
+	private TuringMachineState destiny;                  // The destination state
+	private String[] symbolToRead;                       // The symbol to be read
+	private String[] symbolToWrite;                      // The symbol to be written
+	private TuringMachineMovesSet[] moveToApply;         // The available moves to be applied
+	private Integer numberOfTapes;                       // The number of tapes
 	
 	public TuringMachineTransition(TuringMachineState origin, TuringMachineState destiny, String[] symbolToRead,
 			String[] symbolToWrite, TuringMachineMovesSet[] moveToApply, Integer numberOfTapes) {

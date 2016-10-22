@@ -14,27 +14,27 @@ import java.util.ArrayList;
 import turingmachine.TuringMachine;
 
 public class TuringMachineAlphabet {
-	private ArrayList<String> alphabet;				// Lista de simbolos que componen el alfabeto.
+	private ArrayList<String> alphabet;				// List of symbols that compose the alphabet
 	
-	/**
-	 * Crea un alfabeto vacio.
-	 */
+  /**
+   * Creates a empty alphabet
+   */
 	public TuringMachineAlphabet(){
 		setAlphabet(new ArrayList<String>());
 	}
-	/**
-	 * A�ade el elemento recibido al alfabeto.
-	 * @param element
-	 */
+  /**
+   * Adds an element to the alphabet
+   * @param element
+   */
 	public void addElementToAlphabet(String element) {
 		if (!getAlphabet().contains(element) && !element.equals(TuringMachine.BLANK))
 			getAlphabet().add(element);
 	}
-	/**
-	 * Verifica si el elemento pertenece al alfabeto.
-	 * @param element	elemento a analizar.
-	 * @return			true si element pertenece al alfabeto.
-	 */
+  /**
+   * Verifies if an element belongs to the alphabet
+   * @param element Element to check
+   * @return      true if the element belongs to the alphabet
+   */
 	public boolean elementBelongsToAlphabet(String element){
 		return getAlphabet().contains(element) || element.equals(TuringMachine.BLANK);
 	}

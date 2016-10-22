@@ -9,6 +9,7 @@
 
 package turingmachine;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,15 +25,15 @@ import turingmachineelements.TuringMachineTransitionTable;
 
 public class TuringMachine {
 	
-	public static String BLANK = "$";							// Simbolo que representa el blanco.
+	public static String BLANK = "$";							                               // Symbol to represent blank
 	
-	private TuringMachineTransitionTable turingMachineTransitionTable;									// Asociacion de estados a transiciones.
-	private TuringMachineState actualState;										// Estado actual del automata.
-	private TuringMachineAlphabet sigma;										// Alfabeto de la cadena de entrada (sigma).	
-	private TuringMachineAlphabet tau;
-	private TuringMachineState startingState;									// Estado inicial.
-	private ArrayList<TuringMachineTape> turingMachineTapes;												// Cinta de la m�quina.
-	private Integer numberOfTapes;
+	private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
+	private TuringMachineState actualState;										                   // Current TM state
+	private TuringMachineAlphabet sigma;										                     // Sigma alphabet	
+	private TuringMachineAlphabet tau;                                           // Tau alphabet
+	private TuringMachineState startingState;									                   // Initial state
+	private ArrayList<TuringMachineTape> turingMachineTapes;										 // The Turing Machine tapes
+	private Integer numberOfTapes;                                               // The number of tapes availables on the TM
 	
 	
 	public TuringMachine() {
@@ -41,10 +42,12 @@ public class TuringMachine {
 		setTau(new TuringMachineAlphabet());
 		setTapes(new ArrayList<TuringMachineTape>());
 	}
-	/**
-	 * Evalua la entrada actual.
-	 * @return True si es aceptada.
-	 */
+	
+  /**
+   * Evaluates the current input
+   * @return True if the input is accepted
+   * @throws IOException 
+   */
 	public boolean evaluateEntry() {
 		TuringMachineTransition t;
 		setActualState(getStartingState());
@@ -103,11 +106,12 @@ public class TuringMachine {
 		}
 		return true;
 	}
-	/**
-	 * Devuelve true si en el estado en el que esta
-	 * se puede dar por aceptada la entrada.
-	 * @return
-	 */
+	
+  /**
+   * Checks if the input can be accepted in the current TM state
+   * @param actualStates
+   * @return
+   */
 	private boolean entryAccepted() {
 		return getActualState().getIsFinal();
 	}
@@ -120,51 +124,54 @@ public class TuringMachine {
 			
 		return result;
 	}
-	/**
-	 * Verifica si el estado existe en el automata.
-	 * @param state
-	 * @return True si existe.
-	 */
+	
+  /**
+   * Verifies if the state belongs to the TM
+   * @param state
+   * @return True if the state exists
+   */
 	public boolean stateExist(String state) {
 		return getAutomaton().stateExist(state);
 	}
-	/**
-	 * A�ade un nuevo estado.
-	 * @param newState
-	 */
+  /**
+   * Adds a new state
+   * @param newState
+   */
 	public void addState(String newState){
 		getAutomaton().addState(newState);
 	}
-	/**
-	 * A�ade un nuevo estado final.
-	 * @param finalState
-	 */
+  /**
+   * Adds a new final state
+   * @param finalState
+   */
 	public void addFinalState(String finalState) {
 		getAutomaton().addFinalState(finalState);
 	}
-	/**
-	 * A�ade un nuevo elemento al alfabeto sigma.
-	 * @param newElement
-	 */
+  /**
+   * Adds a new element to the Sigma alphabet
+   * @param newElement
+   */
 	public void addElementToSigma(String newElement) {
 		getSigma().addElementToAlphabet(newElement);
 	}
-	/**
-	 * 
-	 * @param newElement
-	 */
+	
+  /**
+   * Adds a new element to the Tau alphabet
+   * @param newElement
+   */
 	public void addElementToTau(String newElement) {
 		getTau().addElementToAlphabet(newElement);
 	}
-	/**
-	 * A�ade una nueva transicion.
-	 * @param origin
-	 * @param entryToConsume
-	 * @param stackSymbolToConsume
-	 * @param destiny
-	 * @param symbolsToPush
-	 * @throws IllegalArgumentException
-	 */
+	
+  /**
+   * Adds a new transition to the TM
+   * @param origin
+   * @param entryToConsume
+   * @param stackSymbolToConsume
+   * @param destiny
+   * @param symbolsToPush
+   * @throws IllegalArgumentException
+   */
 	public void addTransition(String origin,  String destiny, String[] symbolsToRead, String[] symbolsToWrite, TuringMachineMovesSet[] moves) throws IllegalArgumentException {
 		TuringMachineTransition turingMachineTransition;
 		
