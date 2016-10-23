@@ -11,35 +11,26 @@ package logic;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-import common.TuringMachineCommonText;
-import exceptions.TuringMachineExceptionHandler;
-import gui.TuringMachineWindow;
-import handlers.TuringMachineFileHandler;
 import turingmachine.TuringMachine;
+import gui.TuringMachineWindow;
 
 public class Main {
-	public static void main(String[] args) {
-		TuringMachine automaton = null;
-		TuringMachineWindow frame; 
-		if (args.length < 1) {
-			System.err.println("Se debe pasar por parametro el archivo a leer");
-			return;
-		}
-		
-		try {
-			automaton = TuringMachineFileHandler.parseFromFile("turing_examples/" + args[0]);
-			frame  = new TuringMachineWindow(automaton);
-		} catch (IOException | TuringMachineExceptionHandler e) {
-			e.printStackTrace();
-			return;
-		}
-		
-		 frame.setTitle(TuringMachineCommonText.WINDOW_TITLE);
-		 frame.setSize(TuringMachineCommonText.WINDOW_SIZE_X, TuringMachineCommonText.WINDOW_SIZE_Y);
-	 	 frame.setLocationRelativeTo(null); // Center the frame
-	   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 frame.setVisible(true);
-	}
+
+  public static void main(String[] args) throws Exception {
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    SwingUtilities.invokeAndWait(new Runnable() {
+      public void run() {
+        try {
+          TuringMachine automaton = null;
+          TuringMachineWindow frame = new TuringMachineWindow(automaton);
+          frame.toggleWindow(true);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 }
