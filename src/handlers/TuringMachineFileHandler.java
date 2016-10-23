@@ -40,6 +40,7 @@ public class TuringMachineFileHandler {
       scanner = new Scanner(new File(filename));  
 
       readStates(scanner);
+      readSigma(scanner);
       readTau(scanner);
       readInitialState(scanner);
       readFinals(scanner);
@@ -85,12 +86,21 @@ public class TuringMachineFileHandler {
     }
   }
   
+  public static void readSigma(Scanner scanner) {
+    String line = scanner.nextLine();
+    String[] symbols = line.split(" ");
+    
+    for (int i = 0; i < symbols.length; i++) {
+      getMachine().addElementToSigma(symbols[i]);
+    }
+  }
+  
   public static void readTau(Scanner scanner) {
     String line = skipLineComments(scanner);
     String[] symbols = line.split("[\t ]+");
 
     for (int i = 0; i < symbols.length; i++) {
-      getMachine().addElementToSigma(symbols[i]);
+      getMachine().addElementToTau(symbols[i]);
     }
   }
   

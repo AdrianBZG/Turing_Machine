@@ -25,6 +25,7 @@ import turingmachineelements.TuringMachineTransitionTable;
 public class TuringMachine {	
   private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
   private TuringMachineState currentState;										                 // Current TM state
+  private TuringMachineAlphabet sigma;                                         // Sigma alphabet
   private TuringMachineAlphabet tau;										                       // Tau alphabet
   private TuringMachineState startingState;									                   // Initial state
   private ArrayList<TuringMachineTape> turingMachineTapes;										 // The Turing Machine tapes
@@ -35,6 +36,7 @@ public class TuringMachine {
   public TuringMachine() {
     setAutomaton(new TuringMachineTransitionTable());
     setTau(new TuringMachineAlphabet());
+    setSigma(new TuringMachineAlphabet());
     setTapes(new ArrayList<TuringMachineTape>());
     setFinalStatesAsString(new ArrayList<String>());
   }
@@ -180,6 +182,14 @@ public class TuringMachine {
    * @param newElement
    */
   public void addElementToSigma(String newElement) {
+    getSigma().addElementToAlphabet(newElement);
+  }
+  
+  /**
+   * Adds a new element to the Tau alphabet
+   * @param newElement
+   */
+  public void addElementToTau(String newElement) {
     getTau().addElementToAlphabet(newElement);
   }
 
@@ -304,5 +314,19 @@ public class TuringMachine {
   
   private void showTransitionInfo(String info) throws IOException {
     TuringMachineWindow.appendTextToTransitionsPanel(info);
+  }
+
+  /**
+   * @return the sigma
+   */
+  public TuringMachineAlphabet getSigma() {
+    return sigma;
+  }
+
+  /**
+   * @param sigma the sigma to set
+   */
+  public void setSigma(TuringMachineAlphabet sigma) {
+    this.sigma = sigma;
   }
 }

@@ -37,6 +37,7 @@ public final class TuringMachineCommonText {
   public final static String NOT_BELONGS_TO_STATE_SET = " doesn't belong to the State Set.";
   public final static String NOT_BELONGS_TO_TAU_ALPHABET = " not belongs to Tau alphabet.";
   public final static String INFORMATION_TEXT = "Subject: Complejidad Computacional\nAssignment: Turing Machine (2)\nDescription: App that simulates a Multi-Tape Turing Machine\nVersion: 0.0.1\nAuthor: Adrian Rodriguez Bazaga\nEmail: arodriba@ull.es\n\nSTATUS COLORS:\nGreen: Accepted\nRed: Rejected\nOrange: Unknown\n\nDELIMITER SYMBOL FOR MULTI-TAPE INPUT: -\nExample: 101-$ (Tape1=101, Tape2=$)";
+  public final static JLabel SIGMA_TEXT = new JLabel("<html><b>\u03A3:</b></html>");
   public final static JLabel TAU_TEXT = new JLabel("<html><b>\u03A4:</b></html>");
   public final static JLabel TM_TYPE_TEXT = new JLabel("<html><b>Turing Machine Type:</b></html>");
   public final static JLabel TM_INITIAL_STATE_TEXT = new JLabel("<html><b>q0:</b></html>");

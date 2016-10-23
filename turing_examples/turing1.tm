@@ -2,6 +2,7 @@
 
 q0 q1
 a b c
+a b c
 q0
 q0
 1

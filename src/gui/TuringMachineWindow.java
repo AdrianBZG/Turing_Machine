@@ -80,6 +80,7 @@ public class TuringMachineWindow extends JFrame {
   private JPanel topModePanel = new JPanel(new FlowLayout());
   private JPanel topChooseFilePanel = new JPanel(new FlowLayout());
   private JPanel automatonInfoPanel = new JPanel(new FlowLayout());
+  private JLabel sigmaTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel tauTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel automatonInitialStateTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel automatonFinalStateTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
@@ -125,6 +126,8 @@ public class TuringMachineWindow extends JFrame {
     getTopInputPanel().add(getTopInputString());
     getTopInputPanel().add(getButton());
     getFirstTopPanel().add(getTopInputPanel());
+    getAutomatonInfoPanel().add(TuringMachineCommonText.SIGMA_TEXT);
+    getAutomatonInfoPanel().add(getSigmaTextValue());
     getAutomatonInfoPanel().add(TuringMachineCommonText.TAU_TEXT);
     getAutomatonInfoPanel().add(getTauTextValue());
     getAutomatonInfoPanel().add(TuringMachineCommonText.TM_TYPE_TEXT);
@@ -279,6 +282,7 @@ public class TuringMachineWindow extends JFrame {
   }
 
   private void updateAutomatonInfoPanel() {
+    getSigmaTextValue().setText(getAutomaton().getSigma().toString());
     getTauTextValue().setText(getAutomaton().getTau().toString());
     getAutomatonInitialStateTextValue().setText(getAutomaton().getStartingState().toString());
     getAutomatonFinalStateTextValue().setText(getAutomaton().getFinalStatesAsString().toString());
@@ -838,5 +842,19 @@ public class TuringMachineWindow extends JFrame {
    */
   public void setAutomatonAcceptedPanel(TuringMachineAcceptedPanel tmAcceptedPanel) {
     this.tmAcceptedPanel = tmAcceptedPanel;
+  }
+
+  /**
+   * @return the sigmaTextValue
+   */
+  public JLabel getSigmaTextValue() {
+    return sigmaTextValue;
+  }
+
+  /**
+   * @param sigmaTextValue the sigmaTextValue to set
+   */
+  public void setSigmaTextValue(JLabel sigmaTextValue) {
+    this.sigmaTextValue = sigmaTextValue;
   }
 }

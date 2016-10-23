@@ -3,6 +3,7 @@
 
 q0						# Initial state
 1 0
+1 0
 q0
 q0
 2						# Number of tapes
