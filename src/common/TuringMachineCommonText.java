@@ -40,7 +40,7 @@ public final class TuringMachineCommonText {
   public final static JLabel SIGMA_TEXT = new JLabel("<html><b>\u03A3:</b></html>");
   public final static JLabel TAU_TEXT = new JLabel("<html><b>\u03A4:</b></html>");
   public final static JLabel TM_TYPE_TEXT = new JLabel("<html><b>Turing Machine Type:</b></html>");
-  public final static JLabel TM_INITIAL_STATE_TEXT = new JLabel("<html><b>q0:</b></html>");
+  public final static JLabel TM_INITIAL_STATE_TEXT = new JLabel("<html><b>s:</b></html>");
   public final static JLabel TM_FINAL_STATE_TEXT = new JLabel("<html><b>F:</b></html>");
   public final static String ACCEPTED_TEXT = "<br><font color=\"green\">ACCEPTED</font>";
   public final static String REJECTED_TEXT = "<br><font color=\"red\">REJECTED</font>";
