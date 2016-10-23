@@ -41,6 +41,7 @@ public final class TuringMachineCommonText {
   public final static String INFORMATION_TEXT = "Subject: Complejidad Computacional\nAssignment: Turing Machine (2)\nDescription: App that simulates a Multi-Tape Turing Machine\nVersion: 0.0.1\nAuthor: Adrian Rodriguez Bazaga\nEmail: arodriba@ull.es\n\nSTATUS COLORS:\nGreen: Accepted\nRed: Rejected\nOrange: Unknown\n\nDELIMITER SYMBOL FOR MULTI-TAPE INPUT: -";
   public final static JLabel EPSILON_TEXT = new JLabel("<html><b>\u03A3:</b></html>");
   public final static JLabel TAU_TEXT = new JLabel("<html><b>\u03A4:</b></html>");
+  public final static JLabel TM_TYPE_TEXT = new JLabel("<html><b>TM Type:</b></html>");
   public final static JLabel TM_INITIAL_STATE_TEXT = new JLabel("<html><b>q0:</b></html>");
   public final static JLabel TM_FINAL_STATE_TEXT = new JLabel("<html><b>F:</b></html>");
   public final static String ACCEPTED_TEXT = "<br><font color=\"green\">ACCEPTED</font>";
@@ -57,4 +58,6 @@ public final class TuringMachineCommonText {
   public final static String STATUS_TEXT = "Status: ";
   public final static String INTERROGATION_MARK = "?";
   public final static String OTHER_OPTION_TEXT = "Other option";
+  public final static String ONE_TAPE_TM = "Using One tape";
+  public final static String MULTI_TAPE_TM = "Using Multi Tapes";
 }

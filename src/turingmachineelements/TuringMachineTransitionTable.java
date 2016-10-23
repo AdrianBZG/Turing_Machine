@@ -47,7 +47,6 @@ public class TuringMachineTransitionTable {
 	 * @param finalState
 	 */
 	public void addFinalState(String finalState) {
-	
 			getTransitionTable().keySet().forEach((state)-> {if (state.equals(new TuringMachineState(finalState))) state.setIsFinal(true);});
 	}
 	

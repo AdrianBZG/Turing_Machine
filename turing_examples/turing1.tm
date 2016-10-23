@@ -2,9 +2,7 @@
 
 q0 q1
 a b
-a b
 q0
-$
 q0
 1
 q0 a q1 a R

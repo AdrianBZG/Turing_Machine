@@ -41,9 +41,7 @@ public class TuringMachineFileHandler {
 
       readStates(scanner);
       readSigma(scanner);
-      readTau(scanner);
       readInitialState(scanner);
-      readBlankSymbol(scanner);
       readFinals(scanner);
       readNumberOfTapes(scanner);
       while (scanner.hasNextLine()) {
@@ -96,15 +94,6 @@ public class TuringMachineFileHandler {
     }
   }
   
-  public static void readTau(Scanner scanner) {
-    String line = skipLineComments(scanner);
-    String[] symbols = line.split("[\t ]+");
-
-    for (int i = 0; i < symbols.length; i++) {
-      getMachine().addElementToTau(symbols[i]);
-    }
-  }
-  
   public static void readInitialState(Scanner scanner) throws TuringMachineExceptionHandler {
     String line = skipLineComments(scanner);
     String[] states = line.split("[\t ]+");
@@ -118,17 +107,6 @@ public class TuringMachineFileHandler {
     } catch(IllegalArgumentException a) {
       throw new TuringMachineExceptionHandler(a.getMessage());
     }
-  }
-  
-  public static void readBlankSymbol(Scanner scanner) throws TuringMachineExceptionHandler {
-    String line = skipLineComments(scanner);
-    String[] states = line.split("[\t ]+");
-
-    if (states.length > 1) {
-      throw new TuringMachineExceptionHandler(TuringMachineCommonText.ONE_BLANK_SYMBOL);
-    }
-
-    TuringMachine.BLANK = states[0];
   }
 
   public static void readFinals(Scanner scanner) throws TuringMachineExceptionHandler {

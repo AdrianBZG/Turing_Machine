@@ -23,17 +23,16 @@ import turingmachineelements.TuringMachineTransitionTable;
 public class TuringMachine {	
 	private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
 	private TuringMachineState actualState;										                   // Current TM state
-	private TuringMachineAlphabet sigma;										                     // Sigma alphabet	
-	private TuringMachineAlphabet tau;                                           // Tau alphabet
+	private TuringMachineAlphabet sigma;										                     // Sigma alphabet
 	private TuringMachineState startingState;									                   // Initial state
 	private ArrayList<TuringMachineTape> turingMachineTapes;										 // The Turing Machine tapes
+	private ArrayList<String> finalStatesAsString;                               // Final states as String to display them
 	private Integer numberOfTapes;                                               // The number of tapes availables on the TM
 	
 	
 	public TuringMachine() {
 		setAutomaton(new TuringMachineTransitionTable());
 		setSigma(new TuringMachineAlphabet());
-		setTau(new TuringMachineAlphabet());
 		setTapes(new ArrayList<TuringMachineTape>());
 	}
 	
@@ -148,6 +147,7 @@ public class TuringMachine {
    * @param finalState
    */
 	public void addFinalState(String finalState) {
+	  finalStatesAsString.add(finalState);
 		getAutomaton().addFinalState(finalState);
 	}
 	
@@ -157,14 +157,6 @@ public class TuringMachine {
    */
 	public void addElementToSigma(String newElement) {
 		getSigma().addElementToAlphabet(newElement);
-	}
-	
-  /**
-   * Adds a new element to the Tau alphabet
-   * @param newElement
-   */
-	public void addElementToTau(String newElement) {
-		getTau().addElementToAlphabet(newElement);
 	}
 	
   /**
@@ -243,12 +235,46 @@ public class TuringMachine {
 	public void setSigma(TuringMachineAlphabet sigma) {
 		this.sigma = sigma;
 	}
-	
-	public TuringMachineAlphabet getTau() {
-		return tau;
-	}
-	
-	public void setTau(TuringMachineAlphabet tau) {
-		this.tau = tau;
-	}	
+
+  /**
+   * @return the turingMachineTransitionTable
+   */
+  public TuringMachineTransitionTable getTuringMachineTransitionTable() {
+    return turingMachineTransitionTable;
+  }
+
+  /**
+   * @param turingMachineTransitionTable the turingMachineTransitionTable to set
+   */
+  public void setTuringMachineTransitionTable(TuringMachineTransitionTable turingMachineTransitionTable) {
+    this.turingMachineTransitionTable = turingMachineTransitionTable;
+  }
+
+  /**
+   * @return the turingMachineTapes
+   */
+  public ArrayList<TuringMachineTape> getTuringMachineTapes() {
+    return turingMachineTapes;
+  }
+
+  /**
+   * @param turingMachineTapes the turingMachineTapes to set
+   */
+  public void setTuringMachineTapes(ArrayList<TuringMachineTape> turingMachineTapes) {
+    this.turingMachineTapes = turingMachineTapes;
+  }
+
+  /**
+   * @return the finalStatesAsString
+   */
+  public ArrayList<String> getFinalStatesAsString() {
+    return finalStatesAsString;
+  }
+
+  /**
+   * @param finalStatesAsString the finalStatesAsString to set
+   */
+  public void setFinalStatesAsString(ArrayList<String> finalStatesAsString) {
+    this.finalStatesAsString = finalStatesAsString;
+  }
 }
