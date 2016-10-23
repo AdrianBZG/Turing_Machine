@@ -122,7 +122,7 @@ public class TuringMachine {
 		String result = "";
 		
 		for (int i = 0; i < getNumberOfTapes(); i++) {
-			result += getTapes().get(i).toString() + "/";
+			result += getTapes().get(i).toString() + "-";
 		}
 			
 		return result;

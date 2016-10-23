@@ -30,7 +30,7 @@ public class TuringMachineWindow extends JFrame{
 	JTextField textField;
 	JButton button;
 	Boolean accepted;
-	public static final String TAPE_SEPARATOR = "/";
+	public static final String TAPE_SEPARATOR = "-";
 	
 	public TuringMachineWindow(TuringMachine automaton) {
 		setAutomaton(automaton);
@@ -48,7 +48,7 @@ public class TuringMachineWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String text = getTextField().getText();
-				String[] tapeText = text.split("/");
+				String[] tapeText = text.split("-");
 				ArrayList<TuringMachineTape> turingMachineTapes = new ArrayList<TuringMachineTape>();
 				
 				for (int i = 0; i < tapeText.length; i++) {
