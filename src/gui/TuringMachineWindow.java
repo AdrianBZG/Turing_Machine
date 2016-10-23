@@ -24,13 +24,13 @@ import turingmachine.TuringMachine;
 import turingmachineelements.TuringMachineTape;
 
 public class TuringMachineWindow extends JFrame {
-	TuringMachine automaton;
-	JPanel panel;
-	JPanel textPanel;
-	TuringMachineAcceptedPanel turingMachineAcceptedPanel;
-	JTextField textField;
-	JButton button;
-	Boolean accepted;
+	private TuringMachine automaton;
+	private JPanel panel;
+	private JPanel textPanel;
+	private TuringMachineAcceptedPanel turingMachineAcceptedPanel;
+	private JTextField textField;
+	private JButton button;
+	private Boolean accepted;
 	
 	public TuringMachineWindow(TuringMachine automaton) {
 		setAutomaton(automaton);

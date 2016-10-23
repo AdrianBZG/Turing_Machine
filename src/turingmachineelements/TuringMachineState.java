@@ -10,7 +10,6 @@
 package turingmachineelements;
 
 public class TuringMachineState {
-	
 	private String name;
 	private Boolean isFinal = false;
 	
