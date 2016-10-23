@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import common.TuringMachineCommonText;
 import exceptions.TuringMachineExceptionHandler;
 import gui.TuringMachineWindow;
 import handlers.TuringMachineFileHandler;
@@ -35,8 +36,8 @@ public class Main {
 			return;
 		}
 		
-		 frame.setTitle("Multi-Tape Turing Machine");
-		 frame.setSize(600, 300);
+		 frame.setTitle(TuringMachineCommonText.WINDOW_TITLE);
+		 frame.setSize(TuringMachineCommonText.WINDOW_SIZE_X, TuringMachineCommonText.WINDOW_SIZE_Y);
 	 	 frame.setLocationRelativeTo(null); // Center the frame
 	   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 frame.setVisible(true);

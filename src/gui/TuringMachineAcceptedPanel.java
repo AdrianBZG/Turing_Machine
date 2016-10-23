@@ -15,7 +15,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class TuringMachineAcceptedPanel extends JPanel {
-	Boolean accepted;
+	private Boolean accepted;
 	
 	public TuringMachineAcceptedPanel() {		
 	}

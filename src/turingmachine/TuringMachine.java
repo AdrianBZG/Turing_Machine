@@ -12,6 +12,7 @@ package turingmachine;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import common.TuringMachineCommonText;
 import turingmachineelements.TuringMachineAlphabet;
 import turingmachineelements.TuringMachineMovesSet;
 import turingmachineelements.TuringMachineState;
@@ -19,10 +20,7 @@ import turingmachineelements.TuringMachineTape;
 import turingmachineelements.TuringMachineTransition;
 import turingmachineelements.TuringMachineTransitionTable;
 
-public class TuringMachine {
-	
-	public static String BLANK = "$";							                               // Symbol to represent blank
-	
+public class TuringMachine {	
 	private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
 	private TuringMachineState actualState;										                   // Current TM state
 	private TuringMachineAlphabet sigma;										                     // Sigma alphabet	
@@ -122,7 +120,7 @@ public class TuringMachine {
 		String result = "";
 		
 		for (int i = 0; i < getNumberOfTapes(); i++) {
-			result += getTapes().get(i).toString() + "-";
+			result += getTapes().get(i).toString() + TuringMachineCommonText.TAPE_SEPARATOR;
 		}
 			
 		return result;
@@ -182,13 +180,13 @@ public class TuringMachine {
 		TuringMachineTransition turingMachineTransition;
 		
 		if (!stateExist(origin)) {
-			throw new IllegalArgumentException("El elemento " + origin + " no forma parte del conjunto de estados.");
+			throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + origin + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
 		}
 		if (!stateExist(destiny)) {
-			throw new IllegalArgumentException("El elemento " + destiny + " no forma parte del conjunto de estados.");
+			throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + destiny + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
 		}
 		if (getNumberOfTapes() != symbolsToRead.length || getNumberOfTapes() != symbolsToWrite.length || getNumberOfTapes() !=  moves.length) {
-			throw new IllegalArgumentException("Fallo en las transiciones");
+			throw new IllegalArgumentException(TuringMachineCommonText.TRANSITIONS_ERROR);
 		}	
 		
 		turingMachineTransition = new TuringMachineTransition(new TuringMachineState(origin), new TuringMachineState(destiny), symbolsToRead, symbolsToWrite, moves, getNumberOfTapes());
@@ -218,7 +216,7 @@ public class TuringMachine {
 	public void setStartingState(TuringMachineState startingState) {
 		this.startingState = startingState;
 		if (!getAutomaton().stateExist(startingState.getName())) {
-			throw new IllegalArgumentException("No existe el estado " + startingState.getName());
+			throw new IllegalArgumentException(TuringMachineCommonText.STATE_NOT_FOUND_ERROR_1 + startingState.getName() + TuringMachineCommonText.STATE_NOT_FOUND_ERROR_2);
 		}
 	}
 

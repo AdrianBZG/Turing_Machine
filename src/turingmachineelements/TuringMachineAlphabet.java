@@ -11,6 +11,7 @@ package turingmachineelements;
 
 import java.util.ArrayList;
 
+import common.TuringMachineCommonText;
 import turingmachine.TuringMachine;
 
 public class TuringMachineAlphabet {
@@ -28,7 +29,7 @@ public class TuringMachineAlphabet {
    * @param element
    */
 	public void addElementToAlphabet(String element) {
-		if (!getAlphabet().contains(element) && !element.equals(TuringMachine.BLANK)) {
+		if (!getAlphabet().contains(element) && !element.equals(TuringMachineCommonText.BLANK)) {
 			getAlphabet().add(element);
 		}
 	}
@@ -39,7 +40,7 @@ public class TuringMachineAlphabet {
    * @return      true if the element belongs to the alphabet
    */
 	public boolean elementBelongsToAlphabet(String element){
-		return getAlphabet().contains(element) || element.equals(TuringMachine.BLANK);
+		return getAlphabet().contains(element) || element.equals(TuringMachineCommonText.BLANK);
 	}
 
 	private ArrayList<String> getAlphabet() {

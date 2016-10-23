@@ -19,10 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import common.TuringMachineCommonText;
 import turingmachine.TuringMachine;
 import turingmachineelements.TuringMachineTape;
 
-public class TuringMachineWindow extends JFrame{
+public class TuringMachineWindow extends JFrame {
 	TuringMachine automaton;
 	JPanel panel;
 	JPanel textPanel;
@@ -30,7 +31,6 @@ public class TuringMachineWindow extends JFrame{
 	JTextField textField;
 	JButton button;
 	Boolean accepted;
-	public static final String TAPE_SEPARATOR = "-";
 	
 	public TuringMachineWindow(TuringMachine automaton) {
 		setAutomaton(automaton);
@@ -38,7 +38,7 @@ public class TuringMachineWindow extends JFrame{
 		setTextPanel(new JPanel(new GridLayout(2, 1)));
 		setTextField(new JTextField());
 		setAcceptedPanel(new TuringMachineAcceptedPanel());
-		setButton(new JButton("Check"));		
+		setButton(new JButton(TuringMachineCommonText.CHECK_BUTTON_TEXT));		
 		getPanel().add(getTextField());
 		getPanel().add(getButton());
 		getTextPanel().add(getPanel());		
@@ -48,7 +48,7 @@ public class TuringMachineWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String text = getTextField().getText();
-				String[] tapeText = text.split("-");
+				String[] tapeText = text.split(TuringMachineCommonText.TAPE_SEPARATOR);
 				ArrayList<TuringMachineTape> turingMachineTapes = new ArrayList<TuringMachineTape>();
 				
 				for (int i = 0; i < tapeText.length; i++) {
@@ -56,7 +56,7 @@ public class TuringMachineWindow extends JFrame{
 				}
 				
 				if (tapeText.length != getAutomaton().getNumberOfTapes()) {
-					System.err.println("El numero de cintas es incorrecto.");
+					System.err.println(TuringMachineCommonText.INCORRECT_NUMBER_OF_TAPES_ERROR);
 					return;
 				}
 				

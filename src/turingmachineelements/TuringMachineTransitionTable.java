@@ -12,6 +12,8 @@ package turingmachineelements;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import common.TuringMachineCommonText;
+
 public class TuringMachineTransitionTable {
 	private HashMap<TuringMachineState, ArrayList<TuringMachineTransition>> transitionTable;       // Table with the associations between a State and it's possible transitions
 	
@@ -55,7 +57,7 @@ public class TuringMachineTransitionTable {
 	 */
 	public void addState(String newState) {		
 		if (getTransitionTable().containsKey(new TuringMachineState(newState))) {
-			throw new IllegalArgumentException("El estado " + newState + " ya existe.");
+			throw new IllegalArgumentException(TuringMachineCommonText.THE_STATE_TEXT + newState + TuringMachineCommonText.ALREADY_EXISTS);
 		} else {
 			getTransitionTable().put(new TuringMachineState(newState), new ArrayList<TuringMachineTransition>());
 		}

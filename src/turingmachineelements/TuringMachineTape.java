@@ -11,7 +11,7 @@ package turingmachineelements;
 
 import java.util.ArrayList;
 
-import turingmachine.TuringMachine;
+import common.TuringMachineCommonText;
 
 public class TuringMachineTape {
 	private ArrayList<String> tape;          // The tape
@@ -38,7 +38,7 @@ public class TuringMachineTape {
 	
 	public void moveLeft() {
 		if (getPosition() == 0) {
-			getTape().add(0, TuringMachine.BLANK);
+			getTape().add(0, TuringMachineCommonText.BLANK);
 		} else { 
 			setPosition(getPosition() - 1);
 		}
@@ -48,7 +48,7 @@ public class TuringMachineTape {
 		setPosition(getPosition() + 1);
 		
 		if (getPosition() >= getTape().size()) {
-			getTape().add(TuringMachine.BLANK);
+			getTape().add(TuringMachineCommonText.BLANK);
 		}
 	}
 
@@ -59,8 +59,8 @@ public class TuringMachineTape {
 			getTape().add(dividedInput[i]);
 		}
 		
-		getTape().add(TuringMachine.BLANK);
-		getTape().add(0, TuringMachine.BLANK);
+		getTape().add(TuringMachineCommonText.BLANK);
+		getTape().add(0, TuringMachineCommonText.BLANK);
 		setPosition(1);		
 	}
 	

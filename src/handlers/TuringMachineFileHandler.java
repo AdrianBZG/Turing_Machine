@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import common.TuringMachineCommonText;
 import exceptions.TuringMachineExceptionHandler;
 import turingmachine.TuringMachine;
 import turingmachineelements.TuringMachineMovesSet;
@@ -33,7 +34,6 @@ public class TuringMachineFileHandler {
    */
   public static TuringMachine parseFromFile(String filename)throws IOException, TuringMachineExceptionHandler {
     setMachine(new TuringMachine());
-
     Scanner scanner = null;
 
     try {
@@ -50,7 +50,7 @@ public class TuringMachineFileHandler {
         readNextTransition(scanner);
       }
     } catch(FileNotFoundException e) {
-      throw new FileNotFoundException(filename + " not found.");
+      throw new FileNotFoundException(filename + TuringMachineCommonText.NOT_FOUND_ERROR);
     } catch (TuringMachineExceptionHandler e) {
       System.err.println(e.getMessage());
       throw new TuringMachineExceptionHandler(e.getMessage());
@@ -73,7 +73,7 @@ public class TuringMachineFileHandler {
       do {                  
         scanner = scanner.skip("[\t\r \n]*"); 
         aux = scanner.nextLine();
-      } while (scanner.hasNextLine() && aux.charAt(0) == '#');    // Skipping all comments on the beginning
+      } while (scanner.hasNextLine() && aux.charAt(0) == TuringMachineCommonText.COMMENT);    // Skipping all comments on the beginning
     }
     return aux;
   }
@@ -110,7 +110,7 @@ public class TuringMachineFileHandler {
     String[] states = line.split("[\t ]+");
 
     if (states.length > 1) {
-      throw new TuringMachineExceptionHandler("Solo puede haber un estado inicial.");
+      throw new TuringMachineExceptionHandler(TuringMachineCommonText.ONE_STARTING_SYMBOL_ERROR);
     }
 
     try {
@@ -125,7 +125,7 @@ public class TuringMachineFileHandler {
     String[] states = line.split("[\t ]+");
 
     if (states.length > 1) {
-      throw new TuringMachineExceptionHandler("Solo puede haber un simbolo blanco.");
+      throw new TuringMachineExceptionHandler(TuringMachineCommonText.ONE_BLANK_SYMBOL);
     }
 
     TuringMachine.BLANK = states[0];
@@ -156,7 +156,7 @@ public class TuringMachineFileHandler {
     int index = 0;
 
     if (symbols.length < tapes * 3 + 2) {
-      throw new TuringMachineExceptionHandler("Error en las transiciones");
+      throw new TuringMachineExceptionHandler(TuringMachineCommonText.TRANSITIONS_ERROR);
     }
 
     origin = symbols[0];
@@ -174,14 +174,14 @@ public class TuringMachineFileHandler {
     
     index = 0;
     for (int i = 2 * tapes + 2; i < symbols.length; i++ ) {
-      if(symbols[i].equals("L")) {
+      if(symbols[i].equals(TuringMachineCommonText.LEFT_MOVEMENT_TEXT)) {
         moves[index] = TuringMachineMovesSet.LEFT;
-      } else if(symbols[i].equals("R")) {
+      } else if(symbols[i].equals(TuringMachineCommonText.RIGHT_MOVEMENT_TEXT)) {
         moves[index] = TuringMachineMovesSet.RIGHT;
-      } else if(symbols[i].equals("S")) {
+      } else if(symbols[i].equals(TuringMachineCommonText.STOP_MOVEMENT_TEXT)) {
         moves[index] = TuringMachineMovesSet.STOP;
       } else {
-        throw new TuringMachineExceptionHandler("Error en las transiciones");
+        throw new TuringMachineExceptionHandler(TuringMachineCommonText.TRANSITIONS_ERROR);
       }
       index++;
     }
@@ -200,7 +200,7 @@ public class TuringMachineFileHandler {
       getMachine().setNumberOfTapes(new Integer(numberOfTapes[0]));
     }
     catch(Exception e) {
-      throw new TuringMachineExceptionHandler("Error en el numero de cintas.");
+      throw new TuringMachineExceptionHandler(TuringMachineCommonText.NUMBER_OF_TAPES_ERROR);
     }
   }
 

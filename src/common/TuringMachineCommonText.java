@@ -13,15 +13,21 @@ import javax.swing.JLabel;
 
 public final class TuringMachineCommonText {
   public final static char COMMENT = '#';                                         // Comment starting symbol
-  public final static String EPSYLON = "$";                                       // Symbol that represents the empty string
+  public final static String BLANK = "$";                                       // Symbol that represents the empty string
+  public final static String TAPE_SEPARATOR = "-";                                // Symbol used to limit the input between 'n' tapes (101-10... 101=Tape1, 10=Tape2)
   public final static String NOT_FOUND_ERROR = " not found.";
   public final static String ONE_STARTING_SYMBOL_ERROR = "Only one starting symbol should exist.";
-  public final static String ONE_STARTING_SYMBOL_STACK_ERROR = "Only one starting symbol should exist in the stack.";
+  public final static String LEFT_MOVEMENT_TEXT = "L";
+  public final static String RIGHT_MOVEMENT_TEXT = "R";
+  public final static String STOP_MOVEMENT_TEXT = "S";
+  public final static String ONE_BLANK_SYMBOL = "Only one blank symbol should exist.";
   public final static String FINAL_STATES_ERROR = "Final states error";
   public final static String STATE_NOT_FOUND_ERROR_1 = "The state ";
-  public final static String STATE_NOT_FOUND_ERROR_2 = " doesn't state.";
+  public final static String STATE_NOT_FOUND_ERROR_2 = " doesn't exist.";
   public final static String ERROR_ADD_STATE_ON_EMPTY = "You use EMPTY if you add final states.";
   public final static String TRANSITIONS_ERROR = "Transitions error";
+  public final static String NUMBER_OF_TAPES_ERROR = "Error with the number of tapes";
+  public final static String INCORRECT_NUMBER_OF_TAPES_ERROR = "Incorrect number of tapes";
   public final static String TRANSITION_PANEL_HEADER_TEXT = "<html><br><b><u>TRANSITION LOG</u></b><br><br></html>";
   public final static String THE_STATE_TEXT = "The state ";
   public final static String THE_ELEMENT_TEXT = "The element ";
