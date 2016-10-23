@@ -1,7 +1,7 @@
 # This TM accepts L = { w in Sigma* | w = (a | b | c)* |a| is even }
 
 q0 q1
-a b
+a b c
 q0
 q0
 1

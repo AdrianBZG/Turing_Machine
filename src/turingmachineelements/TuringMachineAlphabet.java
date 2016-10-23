@@ -12,7 +12,6 @@ package turingmachineelements;
 import java.util.ArrayList;
 
 import common.TuringMachineCommonText;
-import turingmachine.TuringMachine;
 
 public class TuringMachineAlphabet {
 	private ArrayList<String> alphabet;				// List of symbols that compose the alphabet
@@ -23,6 +22,18 @@ public class TuringMachineAlphabet {
 	public TuringMachineAlphabet(){
 		setAlphabet(new ArrayList<String>());
 	}
+	
+  public String toString() {
+    String resultToReturn = new String();
+    
+    for(String symbol : alphabet) {
+      resultToReturn += symbol + " ";
+    }
+    
+    resultToReturn = resultToReturn.substring(0, resultToReturn.length() - 1);
+    
+    return resultToReturn;
+  }
 	
   /**
    * Adds an element to the alphabet

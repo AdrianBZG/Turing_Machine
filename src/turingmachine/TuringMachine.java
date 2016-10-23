@@ -12,7 +12,9 @@ package turingmachine;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import common.TuringMachineCommonData;
 import common.TuringMachineCommonText;
+import gui.TuringMachineWindow;
 import turingmachineelements.TuringMachineAlphabet;
 import turingmachineelements.TuringMachineMovesSet;
 import turingmachineelements.TuringMachineState;
@@ -21,144 +23,166 @@ import turingmachineelements.TuringMachineTransition;
 import turingmachineelements.TuringMachineTransitionTable;
 
 public class TuringMachine {	
-	private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
-	private TuringMachineState actualState;										                   // Current TM state
-	private TuringMachineAlphabet sigma;										                     // Sigma alphabet
-	private TuringMachineState startingState;									                   // Initial state
-	private ArrayList<TuringMachineTape> turingMachineTapes;										 // The Turing Machine tapes
-	private ArrayList<String> finalStatesAsString;                               // Final states as String to display them
-	private Integer numberOfTapes;                                               // The number of tapes availables on the TM
-	
-	
-	public TuringMachine() {
-		setAutomaton(new TuringMachineTransitionTable());
-		setSigma(new TuringMachineAlphabet());
-		setTapes(new ArrayList<TuringMachineTape>());
-	}
-	
+  private TuringMachineTransitionTable turingMachineTransitionTable;				   // The TM transition table
+  private TuringMachineState currentState;										                 // Current TM state
+  private TuringMachineAlphabet tau;										                       // Tau alphabet
+  private TuringMachineState startingState;									                   // Initial state
+  private ArrayList<TuringMachineTape> turingMachineTapes;										 // The Turing Machine tapes
+  private ArrayList<String> finalStatesAsString;                               // Final states as String to display them
+  private Integer numberOfTapes;                                               // The number of tapes availables on the TM
+
+
+  public TuringMachine() {
+    setAutomaton(new TuringMachineTransitionTable());
+    setTau(new TuringMachineAlphabet());
+    setTapes(new ArrayList<TuringMachineTape>());
+    setFinalStatesAsString(new ArrayList<String>());
+  }
+
   /**
    * Evaluates the current input
    * @return True if the input is accepted
    * @throws IOException 
    */
-	public boolean evaluateEntry() {
-		TuringMachineTransition transition;
-		setActualState(getStartingState());
-		do {
-			transition = getNextTransitionToApply();
-			
-			if (transition == null) {
-				break;
-			}
-			
-			applyTransition(transition);
-			
-		} while(true);
-		
-		return entryAccepted();
-	}
-	
-	private void applyTransition(TuringMachineTransition transition) {
-		setActualState(transition.getDestiny());
-		String[] toWrite = transition.getSymbolToWrite();
-		TuringMachineMovesSet[] moves = transition.getMoveToApply();
-		
-		for (int i = 0; i < getNumberOfTapes(); i++) {
-			getTapes().get(i).Write(toWrite[i]);
-			
-			switch (moves[i]) {
-			  case LEFT:
-			    getTapes().get(i).moveLeft();
-			    break;
-			    
-			  case RIGHT:
-			    getTapes().get(i).moveRight();
-			    break;
-			    
-			  default:
-			    break;
-			}
-		}		
-	}
-	
-	private TuringMachineTransition getNextTransitionToApply() {
-		ArrayList<TuringMachineTransition> possibleTransitions;
-		
-		possibleTransitions = getAutomaton().getTransitionsFromState(getActualState());
-		
-		for (int i = 0; i < possibleTransitions.size(); i++) {
-			if (canApplyTransition(possibleTransitions.get(i))) {
-				return possibleTransitions.get(i);
-			}
-		}		
-		
-		return null;
-	}
-	
-	private Boolean canApplyTransition(TuringMachineTransition t) {
-		String[] symbols = t.getSymbolToRead();
-		
-		for (int i = 0; i < getTapes().size(); i++) {
-			if (!getTapes().get(i).read().equals(symbols[i])) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
+  public boolean evaluateEntry() throws IOException {
+    TuringMachineTransition transition;
+    setCurrentState(getStartingState());
+    do {
+      transition = getNextTransitionToApply();
+
+      if (transition == null) {
+        break;
+      }
+      
+      if(TuringMachineCommonData.getTransitionNumber() == 0) {
+        updateTransitionInformation(transition);
+      }
+      applyTransition(transition);
+      updateTransitionInformation(transition);
+      
+    } while (true);
+
+    return entryAccepted();
+  }
+
+  private void updateTransitionInformation(TuringMachineTransition transitionToApply) throws IOException {
+    TuringMachineCommonData.setTransitionNumber(TuringMachineCommonData.getTransitionNumber() + 1);
+    if(TuringMachineCommonData.getTransitionNumber() > 1) {
+      showTransitionInfo("<br><b><u>" + TuringMachineCommonData.getTransitionNumber() + ".</u> CURRENT STATE:</b> " + getCurrentState() + "<br>" + getTapesAsString() + "<b> ACTION(\u03B4): </b>" + transitionToApply);
+    } else {
+      showTransitionInfo("<b><u>" + TuringMachineCommonData.getTransitionNumber() + ".</u> CURRENT STATE:</b> " + getCurrentState() + "<br>" + getTapesAsString() + "<b> ACTION(\u03B4): </b>" + transitionToApply);
+    }
+  }
+  
+  private String getTapesAsString() {
+    String result = "";
+    for(int i = 0; i < turingMachineTapes.size(); i++) {
+      result += "<b>TAPE " + (i + 1) + " STATUS: </b>" + turingMachineTapes.get(i).toString() + "<br>";
+    }
+    return result;
+  }
+
+  private void applyTransition(TuringMachineTransition transition) throws IOException {
+    setCurrentState(transition.getDestiny());
+    String[] toWrite = transition.getSymbolToWrite();
+    TuringMachineMovesSet[] moves = transition.getMoveToApply();
+
+    for (int i = 0; i < getNumberOfTapes(); i++) {
+      getTapes().get(i).Write(toWrite[i]);
+
+      switch (moves[i]) {
+      case LEFT:
+        getTapes().get(i).moveLeft();
+        break;
+
+      case RIGHT:
+        getTapes().get(i).moveRight();
+        break;
+
+      default:
+        break;
+      }
+    }		
+  }
+
+  private TuringMachineTransition getNextTransitionToApply() {
+    ArrayList<TuringMachineTransition> possibleTransitions;
+
+    possibleTransitions = getAutomaton().getTransitionsFromState(getCurrentState());
+
+    for (int i = 0; i < possibleTransitions.size(); i++) {
+      if (canApplyTransition(possibleTransitions.get(i))) {
+        return possibleTransitions.get(i);
+      }
+    }		
+
+    return null;
+  }
+
+  private Boolean canApplyTransition(TuringMachineTransition t) {
+    String[] symbols = t.getSymbolToRead();
+
+    for (int i = 0; i < getTapes().size(); i++) {
+      if (!getTapes().get(i).read().equals(symbols[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /**
    * Checks if the input can be accepted in the current TM state
    * @param actualStates
    * @return
    */
-	private boolean entryAccepted() {
-		return getActualState().getIsFinal();
-	}
-	
-	public String getTapesString() {
-		String result = "";
-		
-		for (int i = 0; i < getNumberOfTapes(); i++) {
-			result += getTapes().get(i).toString() + TuringMachineCommonText.TAPE_SEPARATOR;
-		}
-			
-		return result;
-	}
-	
+  private boolean entryAccepted() {
+    return getCurrentState().getIsFinal();
+  }
+
+  public String getTapesString() {
+    String result = "";
+
+    for (int i = 0; i < getNumberOfTapes(); i++) {
+      result += getTapes().get(i).toString() + TuringMachineCommonText.TAPE_SEPARATOR;
+    }
+
+    return result;
+  }
+
   /**
    * Verifies if the state belongs to the TM
    * @param state
    * @return True if the state exists
    */
-	public boolean stateExist(String state) {
-		return getAutomaton().stateExist(state);
-	}
-	
+  public boolean stateExist(String state) {
+    return getAutomaton().stateExist(state);
+  }
+
   /**
    * Adds a new state
    * @param newState
    */
-	public void addState(String newState) {
-		getAutomaton().addState(newState);
-	}
-	
+  public void addState(String newState) {
+    getAutomaton().addState(newState);
+  }
+
   /**
    * Adds a new final state
    * @param finalState
    */
-	public void addFinalState(String finalState) {
-	  finalStatesAsString.add(finalState);
-		getAutomaton().addFinalState(finalState);
-	}
-	
+  public void addFinalState(String finalState) {
+    getFinalStatesAsString().add(finalState);
+    getAutomaton().addFinalState(finalState);
+  }
+
   /**
    * Adds a new element to the Sigma alphabet
    * @param newElement
    */
-	public void addElementToSigma(String newElement) {
-		getSigma().addElementToAlphabet(newElement);
-	}
-	
+  public void addElementToSigma(String newElement) {
+    getTau().addElementToAlphabet(newElement);
+  }
+
   /**
    * Adds a new transition to the TM
    * @param origin
@@ -168,73 +192,73 @@ public class TuringMachine {
    * @param symbolsToPush
    * @throws IllegalArgumentException
    */
-	public void addTransition(String origin,  String destiny, String[] symbolsToRead, String[] symbolsToWrite, TuringMachineMovesSet[] moves) throws IllegalArgumentException {
-		TuringMachineTransition turingMachineTransition;
-		
-		if (!stateExist(origin)) {
-			throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + origin + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
-		}
-		if (!stateExist(destiny)) {
-			throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + destiny + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
-		}
-		if (getNumberOfTapes() != symbolsToRead.length || getNumberOfTapes() != symbolsToWrite.length || getNumberOfTapes() !=  moves.length) {
-			throw new IllegalArgumentException(TuringMachineCommonText.TRANSITIONS_ERROR);
-		}	
-		
-		turingMachineTransition = new TuringMachineTransition(new TuringMachineState(origin), new TuringMachineState(destiny), symbolsToRead, symbolsToWrite, moves, getNumberOfTapes());
-		getAutomaton().addTransitionToState(turingMachineTransition);
-	}
+  public void addTransition(String origin,  String destiny, String[] symbolsToRead, String[] symbolsToWrite, TuringMachineMovesSet[] moves) throws IllegalArgumentException {
+    TuringMachineTransition turingMachineTransition;
 
-	public TuringMachineTransitionTable getAutomaton() {
-		return turingMachineTransitionTable;
-	}
+    if (!stateExist(origin)) {
+      throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + origin + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
+    }
+    if (!stateExist(destiny)) {
+      throw new IllegalArgumentException(TuringMachineCommonText.THE_ELEMENT_TEXT + destiny + TuringMachineCommonText.NOT_BELONGS_TO_STATE_SET);
+    }
+    if (getNumberOfTapes() != symbolsToRead.length || getNumberOfTapes() != symbolsToWrite.length || getNumberOfTapes() !=  moves.length) {
+      throw new IllegalArgumentException(TuringMachineCommonText.TRANSITIONS_ERROR);
+    }	
 
-	public void setAutomaton(TuringMachineTransitionTable turingMachineTransitionTable) {
-		this.turingMachineTransitionTable = turingMachineTransitionTable;
-	}
+    turingMachineTransition = new TuringMachineTransition(new TuringMachineState(origin), new TuringMachineState(destiny), symbolsToRead, symbolsToWrite, moves, getNumberOfTapes());
+    getAutomaton().addTransitionToState(turingMachineTransition);
+  }
 
-	public TuringMachineState getActualState() {
-		return actualState;
-	}
+  public TuringMachineTransitionTable getAutomaton() {
+    return turingMachineTransitionTable;
+  }
 
-	public void setActualState(TuringMachineState actualState) {
-		this.actualState = actualState;
-	}
+  public void setAutomaton(TuringMachineTransitionTable turingMachineTransitionTable) {
+    this.turingMachineTransitionTable = turingMachineTransitionTable;
+  }
 
-	public TuringMachineState getStartingState() {
-		return startingState;
-	}
+  public TuringMachineState getCurrentState() {
+    return currentState;
+  }
 
-	public void setStartingState(TuringMachineState startingState) {
-		this.startingState = startingState;
-		if (!getAutomaton().stateExist(startingState.getName())) {
-			throw new IllegalArgumentException(TuringMachineCommonText.STATE_NOT_FOUND_ERROR_1 + startingState.getName() + TuringMachineCommonText.STATE_NOT_FOUND_ERROR_2);
-		}
-	}
+  public void setCurrentState(TuringMachineState currentState) {
+    this.currentState = currentState;
+  }
 
-	public ArrayList<TuringMachineTape> getTapes() {
-		return turingMachineTapes;
-	}
+  public TuringMachineState getStartingState() {
+    return startingState;
+  }
 
-	public void setTapes(ArrayList<TuringMachineTape> turingMachineTapes) {
-		this.turingMachineTapes = turingMachineTapes;
-	}
+  public void setStartingState(TuringMachineState startingState) {
+    this.startingState = startingState;
+    if (!getAutomaton().stateExist(startingState.getName())) {
+      throw new IllegalArgumentException(TuringMachineCommonText.STATE_NOT_FOUND_ERROR_1 + startingState.getName() + TuringMachineCommonText.STATE_NOT_FOUND_ERROR_2);
+    }
+  }
 
-	public Integer getNumberOfTapes() {
-		return numberOfTapes;
-	}
+  public ArrayList<TuringMachineTape> getTapes() {
+    return turingMachineTapes;
+  }
 
-	public void setNumberOfTapes(Integer numberOfTapes) {
-		this.numberOfTapes = numberOfTapes;
-	}
-	
-	public TuringMachineAlphabet getSigma() {
-		return sigma;
-	}
-	
-	public void setSigma(TuringMachineAlphabet sigma) {
-		this.sigma = sigma;
-	}
+  public void setTapes(ArrayList<TuringMachineTape> turingMachineTapes) {
+    this.turingMachineTapes = turingMachineTapes;
+  }
+
+  public Integer getNumberOfTapes() {
+    return numberOfTapes;
+  }
+
+  public void setNumberOfTapes(Integer numberOfTapes) {
+    this.numberOfTapes = numberOfTapes;
+  }
+
+  public TuringMachineAlphabet getTau() {
+    return tau;
+  }
+
+  public void setTau(TuringMachineAlphabet sigma) {
+    this.tau = sigma;
+  }
 
   /**
    * @return the turingMachineTransitionTable
@@ -276,5 +300,9 @@ public class TuringMachine {
    */
   public void setFinalStatesAsString(ArrayList<String> finalStatesAsString) {
     this.finalStatesAsString = finalStatesAsString;
+  }
+  
+  private void showTransitionInfo(String info) throws IOException {
+    TuringMachineWindow.appendTextToTransitionsPanel(info);
   }
 }

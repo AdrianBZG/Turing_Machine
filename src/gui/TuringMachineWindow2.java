@@ -63,7 +63,11 @@ public class TuringMachineWindow2 extends JFrame {
 
         getAutomaton().setTapes(turingMachineTapes);
 
-        accepted = getAutomaton().evaluateEntry();
+        try {
+          accepted = getAutomaton().evaluateEntry();
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
         text = getAutomaton().getTapesString();
         getTextField().setText(text);   // Cuidado aqui, mejor en el log o dara problemas
         getAcceptedPanel().setAccepted(accepted);

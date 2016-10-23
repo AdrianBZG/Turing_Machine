@@ -9,6 +9,8 @@
 
 package turingmachineelements;
 
+import common.Algorithms;
+
 public class TuringMachineTransition {
 
   private TuringMachineState origin;                   // The origin state
@@ -50,5 +52,10 @@ public class TuringMachineTransition {
 
   public Integer getNumberOfTapes() {
     return numberOfTapes;
+  }
+  
+  public String toString() {
+    return new String("(" + getOrigin() + "," + Algorithms.stringArrayToString(getSymbolToRead()) +
+                      ") -> (" + getDestiny() + "," + Algorithms.stringArrayToString(getSymbolToWrite()) + "," + getMoveToApply()[0].name() + ")");
   }
 }

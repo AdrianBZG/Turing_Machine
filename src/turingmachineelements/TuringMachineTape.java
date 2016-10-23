@@ -28,6 +28,19 @@ public class TuringMachineTape {
 		setInput(input);
 	}
 	
+	@Override
+  public String toString() {
+    String resultToReturn = new String();
+    for(int i = 0; i < getTape().size(); i++) {
+      if(i == position) {
+        resultToReturn += "<b><font color=\"red\">" + getTape().get(i) + "</font></b> ";
+      } else {
+        resultToReturn += getTape().get(i) + " ";
+      }
+    }
+    return resultToReturn;
+  }
+	
 	public String read() {
 		return getTape().get(getPosition());
 	}
@@ -62,16 +75,6 @@ public class TuringMachineTape {
 		getTape().add(TuringMachineCommonText.BLANK);
 		getTape().add(0, TuringMachineCommonText.BLANK);
 		setPosition(1);		
-	}
-	
-	public String toString() {
-		String result = "";
-		
-		for (int i = 0; i < getTape().size(); i++) {
-			result = result + getTape().get(i);
-		}
-		
-		return result;
 	}
 	
 	public ArrayList<String> getTape() {

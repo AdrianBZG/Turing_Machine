@@ -22,6 +22,10 @@ public class TuringMachineState {
 		this.isFinal = isFinal;
 	}
 	
+	public String toString() {
+	  return getName();
+	}
+	
 	public String getName() {
 		return name;
 	}

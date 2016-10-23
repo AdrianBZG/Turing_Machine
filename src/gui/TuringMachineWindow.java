@@ -39,12 +39,12 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import turingmachine.TuringMachine;
-import turingmachineelements.TuringMachineTape;
 import common.TuringMachineCommonData;
 import common.TuringMachineCommonText;
 import exceptions.TuringMachineExceptionHandler;
 import handlers.TuringMachineFileHandler;
+import turingmachine.TuringMachine;
+import turingmachineelements.TuringMachineTape;
 
 public class TuringMachineWindow extends JFrame {
   private final static String INFO_ICON_PATH = "res/info-image-16.png";
@@ -80,7 +80,6 @@ public class TuringMachineWindow extends JFrame {
   private JPanel topModePanel = new JPanel(new FlowLayout());
   private JPanel topChooseFilePanel = new JPanel(new FlowLayout());
   private JPanel automatonInfoPanel = new JPanel(new FlowLayout());
-  private JLabel epsilonTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel tauTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel automatonInitialStateTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
   private JLabel automatonFinalStateTextValue = new JLabel(TuringMachineCommonText.INTERROGATION_MARK);
@@ -126,8 +125,6 @@ public class TuringMachineWindow extends JFrame {
     getTopInputPanel().add(getTopInputString());
     getTopInputPanel().add(getButton());
     getFirstTopPanel().add(getTopInputPanel());
-    getAutomatonInfoPanel().add(TuringMachineCommonText.EPSILON_TEXT);
-    getAutomatonInfoPanel().add(getEpsilonTextValue());
     getAutomatonInfoPanel().add(TuringMachineCommonText.TAU_TEXT);
     getAutomatonInfoPanel().add(getTauTextValue());
     getAutomatonInfoPanel().add(TuringMachineCommonText.TM_TYPE_TEXT);
@@ -226,6 +223,11 @@ public class TuringMachineWindow extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         //
+        // First: clear everything (from previous executions)
+        clearTransitionsPanel();
+        TuringMachineCommonData.resetTransitionNumber();
+        //
+        
         String text = getTextField().getText();
         String[] tapeText = text.split(TuringMachineCommonText.TAPE_SEPARATOR);
         ArrayList<TuringMachineTape> turingMachineTapes = new ArrayList<TuringMachineTape>();
@@ -241,15 +243,17 @@ public class TuringMachineWindow extends JFrame {
 
         getAutomaton().setTapes(turingMachineTapes);
 
-        setAccepted(getAutomaton().evaluateEntry());
+        try {
+          setAccepted(getAutomaton().evaluateEntry());
+        } catch (IOException e2) {
+          e2.printStackTrace();
+        }
         getAcceptedPanel().setAccepted(accepted);
         
         try {
           if(getAccepted()) {
-            appendTextToTransitionsPanel("Tape(s) status: " + getAutomaton().getTapesString());
             appendTextToTransitionsPanel(TuringMachineCommonText.ACCEPTED_TEXT);
           } else {
-            appendTextToTransitionsPanel("Tape(s) status: " + getAutomaton().getTapesString());
             appendTextToTransitionsPanel(TuringMachineCommonText.REJECTED_TEXT);
           }
         } catch (IOException e1) {
@@ -275,8 +279,7 @@ public class TuringMachineWindow extends JFrame {
   }
 
   private void updateAutomatonInfoPanel() {
-    getEpsilonTextValue().setText(getAutomaton().getSigma().toString());
-    getTauTextValue().setText("chuo");
+    getTauTextValue().setText(getAutomaton().getTau().toString());
     getAutomatonInitialStateTextValue().setText(getAutomaton().getStartingState().toString());
     getAutomatonFinalStateTextValue().setText(getAutomaton().getFinalStatesAsString().toString());
     if(getAutomaton().getNumberOfTapes() > 1) {
@@ -681,20 +684,6 @@ public class TuringMachineWindow extends JFrame {
    */
   public void setAutomatonInfoPanel(JPanel automatonInfoPanel) {
     this.automatonInfoPanel = automatonInfoPanel;
-  }
-
-  /**
-   * @return the epsilonTextValue
-   */
-  public JLabel getEpsilonTextValue() {
-    return epsilonTextValue;
-  }
-
-  /**
-   * @param epsilonTextValue the epsilonTextValue to set
-   */
-  public void setEpsilonTextValue(JLabel epsilonTextValue) {
-    this.epsilonTextValue = epsilonTextValue;
   }
 
   /**
