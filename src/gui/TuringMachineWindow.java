@@ -49,7 +49,7 @@ import turingmachineelements.TuringMachineTape;
 public class TuringMachineWindow extends JFrame {
   private final static String INFO_ICON_PATH = "res/info-image-16.png";
   private final static ImageIcon infoIcon = new ImageIcon(INFO_ICON_PATH);
-  private final static String AUTOMATA_ICON_PATH = "res/automata-icon.png";
+  private final static String AUTOMATA_ICON_PATH = "res/turing_machine_icon.png";
   private final static ImageIcon icon = new ImageIcon(AUTOMATA_ICON_PATH);
 
   private static TuringMachine automaton;
