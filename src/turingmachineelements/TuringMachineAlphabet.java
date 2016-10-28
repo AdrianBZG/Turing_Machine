@@ -15,41 +15,49 @@ import common.TuringMachineCommonText;
 
 public class TuringMachineAlphabet {
 	private ArrayList<String> alphabet;				// List of symbols that compose the alphabet
-	
-  /**
-   * Creates a empty alphabet
-   */
+
+	/**
+	 * Creates a empty alphabet
+	 */
 	public TuringMachineAlphabet(){
 		setAlphabet(new ArrayList<String>());
 	}
-	
-  public String toString() {
-    String resultToReturn = new String();
-    
-    for(String symbol : alphabet) {
-      resultToReturn += symbol + " ";
-    }
-    
-    resultToReturn = resultToReturn.substring(0, resultToReturn.length() - 1);
-    
-    return resultToReturn;
-  }
-	
-  /**
-   * Adds an element to the alphabet
-   * @param element
-   */
+
+	public String toString() {
+		String resultToReturn = new String();
+
+		for(String symbol : alphabet) {
+			resultToReturn += symbol + " ";
+		}
+
+		resultToReturn = resultToReturn.substring(0, resultToReturn.length() - 1);
+
+		return resultToReturn;
+	}
+
+	/**
+	 * Adds an element to the alphabet
+	 * @param element
+	 */
 	public void addElementToAlphabet(String element) {
-		if (!getAlphabet().contains(element) && !element.equals(TuringMachineCommonText.BLANK)) {
+		if (!getAlphabet().contains(element) && (!element.equals(TuringMachineCommonText.BLANK))) {
 			getAlphabet().add(element);
 		}
 	}
-	
-  /**
-   * Verifies if an element belongs to the alphabet
-   * @param element Element to check
-   * @return      true if the element belongs to the alphabet
-   */
+
+	/**
+	 * Adds blank to the alphabet
+	 * @param element
+	 */
+	public void addBlankToAlphabet() {
+		getAlphabet().add(TuringMachineCommonText.BLANK);
+	}
+
+	/**
+	 * Verifies if an element belongs to the alphabet
+	 * @param element Element to check
+	 * @return      true if the element belongs to the alphabet
+	 */
 	public boolean elementBelongsToAlphabet(String element){
 		return getAlphabet().contains(element) || element.equals(TuringMachineCommonText.BLANK);
 	}

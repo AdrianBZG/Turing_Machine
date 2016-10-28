@@ -269,6 +269,10 @@ public class TuringMachine {
   public void setTau(TuringMachineAlphabet sigma) {
     this.tau = sigma;
   }
+  
+  public void addBlankToTauAlphabet() {
+	  getTau().addBlankToAlphabet();
+  }
 
   /**
    * @return the turingMachineTransitionTable

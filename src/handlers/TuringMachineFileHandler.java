@@ -102,6 +102,8 @@ public class TuringMachineFileHandler {
     for (int i = 0; i < symbols.length; i++) {
       getMachine().addElementToTau(symbols[i]);
     }
+    // Finally add the blank symbol
+    getMachine().addBlankToTauAlphabet();
   }
   
   public static void readInitialState(Scanner scanner) throws TuringMachineExceptionHandler {
